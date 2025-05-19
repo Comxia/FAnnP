@@ -78,6 +78,7 @@ def _():
     # MySQL credentials.
     mysql_username = "MySQL_Name_Placeholder" #"MySQL_Name_Placeholder"
     mysql_password = "MySQL_Password_Placeholder" #"MySQL_Password_Placeholder"
+    mysql_database = "MySQL_Database_Placeholder" #"MySQL_Database_Placeholder"
 
     # Make sure the useful libraries we want to use are activated by running this code.
     import os
@@ -107,7 +108,7 @@ def _():
     # Checks if we can establish a connection to the FAnnP MySQL database.
     def connect_to_mysql():
         try:
-            return mysql.connector.connect(user=mysql_username, password=mysql_password, host='localhost', database='fannp')
+            return mysql.connector.connect(user=mysql_username, password=mysql_password, host='localhost', database=mysql_database)
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
                 print("Something is wrong with your user name or password")
@@ -1670,7 +1671,7 @@ def _(
         plt.show()
     else:
         print('Warning, the dataframe is empty!\nThis means no modules are connected to this pathway!')
-    percentage_module_df.query('module_id == @pathway_modules')
+    #percentage_module_df.query('module_id == @pathway_modules')
     return
 
 

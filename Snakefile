@@ -2,7 +2,7 @@
 FunctionalAnnotation Pipeline
 Version: 2.0
 Author: Alejandro Abdala, Julia Engelmann, Nina Dombrowski, and Tijn Tensen
-Last update: --/05/2025
+Last update: 03/03/2025
 """
 from random import randint
 import datetime
@@ -2922,11 +2922,12 @@ rule generate_marimo_notebook:
         run_id=run_id,
         notebook="Scripts/MySQL_FAnnP_Analyzer.py",
         mysql_user=config["mysql_username"],
-        mysql_pass=config["mysql_password"]
+        mysql_pass=config["mysql_password"],
+        mysql_db=config["mysql_database"]
     benchmark:
         "{run}/benchmark/generate_marimo_notebook.benchmark"
     shell:
-        "bash Scripts/create_marimo_notebook.sh {input} {params.run_id} {params.notebook} {params.mysql_user} {params.mysql_pass} {output}"
+        "bash Scripts/create_marimo_notebook.sh {input} {params.run_id} {params.notebook} {params.mysql_user} {params.mysql_pass} {params.mysql_db} {output}"
 
 """
 Output for all the final product we want to produce.
