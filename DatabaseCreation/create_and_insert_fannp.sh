@@ -34,7 +34,7 @@ declare pfam_info="DatabaseFiles/Pfam-A.clans.tsv"
 declare pfam_type_info="DatabaseFiles/Pfam-A.hmm.dat"
 
 # TSV files
-declare tsv_files_location=$(printf $mysql_loadmap"/static_"$database"/")
+declare tsv_files_location=$(printf $mysql_loadmap"static_"$database"/")
 mkdir $tsv_files_location
 
 #
