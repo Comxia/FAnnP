@@ -1,7 +1,7 @@
 # FAnnP
 Functional Annotation Pipeline
 
-**Current version:** 1.1
+**Current version:** 2.0
 
 The functional annotation pipeline is mainly designed for the annotation of prokaryotic MAGs (Metagenome Assembled Genomes), although it can also be used for functional annotation of any other type of assembly (genomic or metagenomic).
 
@@ -33,8 +33,8 @@ Input files and Run name
 First, enter the name of your RUN, then the FULL path to your directory containing the bins to annotate, and the bin extension.
 
 ```yaml
-RUN: "test_run1" 
-bin_dir: "/export/lv3/scratch/projects_XX/MyBins/" 
+RUN: "/output/directory" 
+bin_dir: "/bin/directory/" 
 bin_list: ["bin1","bin2","bin3","bin4",...,"binN"]
 bin_ext: "fna" 
 ```
@@ -46,14 +46,48 @@ Sometimes the bin_list can contain several bins to be annotated, in this sense, 
 ## Run the pipeline
 Once that you have all the files in place and your configuration file done:
 
-`snakemake --configfile config.yaml`
+`snakemake --configfile config.yaml --cores 15`
+
+*Database Storage*
+
+Wether you want to store the annotations or not can be turned on and off.
+To store our annotations in the FAnnP database we will need to make sure
+the name of this config file name is the same as the one in the variable.
+The MySQL username and password will be used to store the annotations.
+The MySQL host should be 'localhost' when run on ada
+and should be 'ada' when run on the HPC.
+The map where you can load data from files can be configured through MySQL.
+
+The Meta-Cascabel files both need to be supplied and then afterwards run
+can be set to 'T' to store information from Meta-Cascabel to bin/contigs.
+A Metadata file can also be supplied which requires a certain format. 
+
+```yaml
+generate_sql_database: "T" 
+mysql_username: "faanp_user" 
+mysql_password: "FaanP2025!" 
+mysql_host: "localhost"
+mysql_database: "fannp" 
+mysql_loadmap: "/MySQL/loadfile/map/" 
+
+# If you ran meta_cascabel and where its output locations are.
+meta_cascabel: 
+  run: "F" 
+  location_final_bins: ""  # e.g. map/FinalBins.summary.tsv
+  contig_coverage: ""  # e.g. map/contig_coverage.txt
+
+# If you have a bin metadata file available.
+meta_data:
+  run: "F" 
+  bin_meta_data: ""  # e.g. map/metadata_example.tsv
+```
 
 *Gene calling*
 
-You can choose between Prokka and Prodigal. We recommend the first one for small to medium datasets; Prodigal for bigger datasets.
+You can choose between Prodigal or skipping gene calling if you have a file with proteins. 
 
 ```yaml
-GENE_CALLING: "PROKKA" #PRODIGAL OR PROKKA
+GENE_CALLING: "PRODIGAL" #PRODIGAL OR SKIP
 
 prodigal:
  procedure: "meta" #Select procedure (single or meta)
@@ -113,32 +147,42 @@ Once that you have all the files in place and your configuration file done:
 
 ```
 {RUN}
-├── FunctionalAnnotation.tsv   Summary file with the annotations by protein
-├── clean_bins                 Directory with bins after cleaning steps
+├── FunctionalAnnotation.tsv      Summary file with the annotations by protein
+├── clean_bins                    Directory with bins after cleaning steps
 │   ├── clean.log
 │   ├── clean_bin1.fna
 ...  ...
     └── clean_binN.fna
-├── prokka                       Directory with protein predictions
+├── gene_calling                  Directory with protein predictions
 │   ├── All_bins_clean.faa
 │   ├── concatenate_bins.benchmark
 │   ├── prodigal.benchmark
 │   ├── renamed
 │   ├── bin_1                     Directory with protein predictions per bin
 │   └── bin_2
-├── arCOG                        Results per database
-│   └── arcogs_map.tsv
-├── cog_diamond
-│   └── cog_map.tsv
 ├── contig_mapping
 │   └── Mapping files
-├── diamond
+├── NCBI NR                       Results per database
 │   └──  diamond_map.tsv
-├── kfam
+├── KO
 │   └── kfam_map.tsv
-├── pfam
+├── arCOG
+│   └── arcogs_map.tsv
+├── COG
+│   └── cogs_map.tsv
+├── Pfam
 │   └── pfam_map.tsv
+├── SignalP
+│   └── signalP_map.tsv
+├── TIGR / CAZy / MEROPS / TransporterDB / hydDB / customDBs
+│   ├── tigr_map.tsv
+│   ├── cazy_map.tsv
+│   ├── merops_map.tsv
+│   ├── transporter_map.tsv
+│   └── hydDB_map.tsv
 ....
-└── <DB>
-    └── <DB>_map.tsv
+├── all_sql_inserts
+│   └── run_to_sql.txt
+└── generate_marimo_notebook
+    └── run_to_notebook.txt
 ```
