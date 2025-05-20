@@ -62,7 +62,7 @@ declare ko_has_ec_sql=$(printf $tsv_files_location"ko_has_ec.tsv")
 set +H
 if [ ${create_database} = "True" ]
 then {
-    declare create_database_file=$(printf $tsv_files_location"create_database.sql")
+  declare create_database_file=$(printf $tsv_files_location"create_database.sql")
 	echo "CREATE DATABASE ${database};" > $create_database_file
   echo "CREATE USER IF NOT EXISTS 'faanp_user'@'%' IDENTIFIED BY 'FaanP2025!';" >> $create_database_file
 	echo "GRANT SELECT ON ${database}.* TO   'faanp_user'@'%';" >> $create_database_file
