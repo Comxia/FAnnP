@@ -59,6 +59,7 @@ declare ko_has_ec_sql=$(printf $tsv_files_location"ko_has_ec.tsv")
 #
 #
 # Create Database (We will need to create this before using the python connector!)
+set +H
 if [ ${create_database} = "True" ]
 then {
     declare create_database_file=$(printf $tsv_files_location"create_database.sql")
@@ -69,7 +70,7 @@ then {
 	echo "GRANT INSERT ON ${database}.* TO   'faanp_user'@'%';" >> $create_database_file
 	echo "GRANT ALL PRIVILEGES ON ${database}.* TO   'faanp_user'@'%';" >> $create_database_file
 	echo "UPDATE mysql.user  SET file_priv='Y'   WHERE user='faanp_user';" >> $create_database_file
-	mysql -u $user -p"${password}" < $create_database_file  # Might have to use 'set +H' if '!' symbol is an issue.
+	mysql -u $user -p$password < $create_database_file  # Might have to use 'set +H' if '!' symbol is an issue.
 }
 fi
 
