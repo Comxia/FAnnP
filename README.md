@@ -43,6 +43,26 @@ Sometimes the bin_list can contain several bins to be annotated, in this sense, 
 
 `Scripts/list_Bins.sh test_dir/ fasta config.yaml config_new.yaml`
 
+## Set up the database
+Once that you have installed MySQL, execute the following script.
+
+> bash /export/lv10/user/ttensen/work_dir/Database_scripts/create_and_insert_fannp.sh "mysql_username" "mysql_password" "fannp" "True" "mysql_loadmap" 
+
+| Argument Position | Input Options | Argument Explanation |
+| $1 | mysql username | MySQL username, required to create a database. |
+| $2 | mysql password | MySQL password, required to create a database. |
+| $3 | database name | Make sure your new database name doesn't contain spaces. |
+| $4 | *True* or *False* | To create the database if it doesn't already exist. |
+| $5 | mysql loadmap | The map that allows data to be loaded into MySQL. |
+| $6 (Optional) | --reload_databases | Reloads the KEGG, COG and Pfam database tables. |
+| $7 (Optional) | --skip_kegg | Requires --reload_databases to be activated to function, to safe time on reloading the database since KEGG will take a while. |
+
+## Import FAnnP environment
+Import conda environment and activate it:
+
+`conda env create -n fannp_v2.0 -f fannp_v2.0.yaml`
+`conda activate fannp_v2.0`
+
 ## Run the pipeline
 Once that you have all the files in place and your configuration file done:
 
@@ -56,8 +76,8 @@ the name of this config file name is the same as the one in the variable.
 The MySQL username and password will be used to store the annotations.
 The MySQL host should be 'localhost' when run on ada
 and should be 'ada' when run on the HPC.
+The name of the database can be changed.
 The map where you can load data from files can be configured through MySQL.
-
 The Meta-Cascabel files both need to be supplied and then afterwards run
 can be set to 'T' to store information from Meta-Cascabel to bin/contigs.
 A Metadata file can also be supplied which requires a certain format. 
@@ -137,11 +157,10 @@ bin_cleaning:
 
 The name of the following sections/options is equivalent to the name of the databases or feature to be annotated. In general, the name is followed by the tool that is used for making such annotation (diamond, blast, hmmr). Set the option annotate: "T" or "F" in order to turn on / off such database annotation. The concatenate_bins flag if set to "T" it will perform the annotation for all the proteins from all the bins/genomes at once (concatenating all of them in a single file); otherwise, it will perform this operation individually for all the bins/genomes. This last scenario is more useful when you have a lot of computational power, so then, you can parallelize more jobs, each one with its own number of CPUs.
 
-
 ## Run the pipeline
 Once that you have all the files in place and your configuration file done:
 
-`snakemake --configfile config.yaml`
+`snakemake --configfile config.yaml --cores 15`
 
 ## Output files structure
 
@@ -186,3 +205,14 @@ Once that you have all the files in place and your configuration file done:
 └── generate_marimo_notebook
     └── run_to_notebook.txt
 ```
+
+## Import Marimo environment
+Import conda environment and activate it:
+
+`conda env create -n marimo_python_env -f marimo_python_env.yaml`
+`conda activate marimo_python_env`
+
+## Activate Marimo Notebook
+Open the Marimo Notebook which is created in the directory the pipeline has been activated in:
+
+`marimo edit`
