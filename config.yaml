@@ -126,13 +126,13 @@ bin_cleaning:
 ################################################################################
 
 diamond:
-  db: "/export/lv13/databases/ncbi/diamond/nr.dmnd"
-  taxonmap: "/export/lv13/databases/ncbi/taxonomy/prot.accession2taxid.gz"  # this tsv file is the one that comes with NCBI (accession,accession.version,taxid,gi)
+  db: "nr.dmnd"
+  taxonmap: "prot.accession2taxid.gz"  # this tsv file is the one that comes with NCBI (accession,accession.version,taxid,gi)
   threads: "15"
   evalue: "1e-5"
   seq: "10"  #number of sequences to display
   extra_params: "--sensitive --no-self-hits -b 8 -c 1 "
-  taxid_to_taxonomy: "/export/lv13/databases/ncbi/taxonomy/taxonomy_8_levels.txt"  #tsv file with tax_id,taxonomy
+  taxid_to_taxonomy: "taxonomy_8_levels.txt"  #tsv file with tax_id,taxonomy
   database_name: "NCBI NR"
   database_version: "2024-01"
   database_description: ""
@@ -145,8 +145,8 @@ cog_hmmr:
   max_domain_overlap: 25 #percentage overlap allow from smallest domain
   evalue_domain_cutoff: "1e-4" #cutoff domains with bad independent evalue
   domain_col: 4 #the column the domain is name located at (-1)
-  database: "/export/lv13/databases/cogs/cog2024/NCBI_COG_2024_untrimmed.hmm"
-  database_names: "/export/lv13/databases/cogs/cog2024/cog-24.def.tab"
+  database: "NCBI_COG_2024_untrimmed.hmm"
+  database_names: "cog-24.def.tab"
   extra_params: ""
   concatenate_bins: "T"
   database_name: "COG: Cluster of Orthologous Genes"
@@ -161,8 +161,8 @@ ko_hmmr:
   max_domain_overlap: 25 #percentage overlap allow from smallest domain
   evalue_domain_cutoff: "1e-4" #cutoff domains with bad independent evalue
   domain_col: 4 #the column the domain name is located at (-1)
-  database: "/export/lv13/databases/ko/All_KO_r109"
-  database_names: "/export/lv13/databases/ko/ko_list_for_mapping"  
+  database: "All_KO_r109"
+  database_names: "ko_list_for_mapping"  
   extra_params: "" 
   concatenate_bins: "T"
   database_name: "KofamKOALA: KEGG Orthology And Links Annotation"
@@ -170,15 +170,15 @@ ko_hmmr:
   database_description: "Database containing a manually curated large collection of protein families."
 
 arCOG_hmmr:
-  annotate: "T"
+  annotate: "F"
   hmmr_tool: "hmmsearch" #hmmsearch or hmmscan
   cpus: 10
   evalue: "1e-5"
   max_domain_overlap: 25 #percentage overlap allow from smallest domain
   evalue_domain_cutoff: "1e-4" #cutoff domains with bad independent evalue
   domain_col: 4 #the column the domain name is located at (-1)
-  database: "/export/data01/databases/arCOG/arCOGs2019/All_Arcogs_2018.hmm"
-  database_names: "/export/data01/databases/arCOG/arCOGs2019/ar14.arCOGdef18.tab"
+  database: "All_Arcogs_2018.hmm"
+  database_names: "ar14.arCOGdef18.tab"
   extra_params: ""
   concatenate_bins: "T"
   database_name: "arCOG: Archaeal Clusters of Orthologous Genes"
@@ -193,8 +193,8 @@ pfam_hmmr:
   max_domain_overlap: 25 #percentage overlap allow from smallest domain
   evalue_domain_cutoff: "1e-4" #cutoff domains with bad independent evalue
   domain_col: 4 #the column the domain name is located at (-1)
-  database: "/export/lv13/databases/pfam/Pfam-A.hmm"
-  database_names: "/export/lv13/databases/pfam/Pfam-A.clans.tsv"
+  database: "Pfam-A.hmm"
+  database_names: "Pfam-A.clans.tsv"
   extra_params: ""
   concatenate_bins: "T"
   database_name: "Pfam: Protein Families"
@@ -202,15 +202,15 @@ pfam_hmmr:
   database_description: "Database containing a large collection of protein families, each represented by multiple sequence alignments and hidden Markov models (HMMs)."
 
 tigr_hmmr:
-  annotate: "T"
+  annotate: "F"
   hmmr_tool: "hmmsearch" #hmmsearch or hmmscan
   cpus: 10
   evalue: 1e-5
   max_domain_overlap: 25 #percentage overlap allow from smallest domain
   evalue_domain_cutoff: "1e-4" #cutoff domains with bad independent evalue
   domain_col: 5 #the column the domain name is located at (-1)
-  database: "/export/data01/databases/tigr/TIGRFAMs_15.0_HMM.LIB"
-  database_names: "/export/data01/databases/tigr/TIGR_Info_clean2.txt"
+  database: "TIGRFAMs_15.0_HMM.LIB"
+  database_names: "TIGR_Info_clean2.txt"
   extra_params: ""
   concatenate_bins: "F"
   database_name: "TIGR: TIGRFAM"
@@ -218,15 +218,15 @@ tigr_hmmr:
   database_description: "TIGRFAMs is a collection of curated multiple sequence alignments (seed alignments) for protein families and profile Hidden Markov Models (HMMs) built from the seeds with the HMMER package."
   
 cazy_hmmr:
-  annotate: "T"
+  annotate: "F"
   hmmr_tool: "hmmsearch" #hmmsearch or hmmscan
   cpus: 10
   evalue: 1e-5
   max_domain_overlap: 25 #percentage overlap allow from smallest domain
   evalue_domain_cutoff: "1e-4" #cutoff domains with bad independent evalue
   domain_col: 4 #the column the domain name is located at (-1)
-  database: "/export/lv13/databases/cazydb/dbCAN-HMMdb-V12.txt" #"/export/data01/databases/cazy/dbCAN-HMMdb-V9.txt"
-  database_names: "/export/lv13/databases/cazydb/CAZyDB.08062022.fam-activities.txt" #"/export/data01/databases/cazy/CAZyDB.07302020.fam-activities.txt"
+  database: "dbCAN-HMMdb-V12.txt" #"/export/data01/databases/cazy/dbCAN-HMMdb-V9.txt"
+  database_names: "CAZyDB.08062022.fam-activities.txt" #"/export/data01/databases/cazy/CAZyDB.07302020.fam-activities.txt"
   extra_params: ""
   concatenate_bins: "F"
   database_name: "CAZy: Carbohydrate-Active enzymes"
@@ -234,11 +234,11 @@ cazy_hmmr:
   database_description: "Database contains a classification and associated information about enzymes involved in the synthesis, metabolism, and recognition of complex carbohydrates, i.e. disaccharides, oligosaccharides, polysaccharides, and glycoconjugates."
 
 merops_blast:
-  annotate: "T"
+  annotate: "F"
   threads: 10
   evalue: 1e-20
-  database: "/export/lv13/databases/merops/blast/merops_protease"
-  database_names: "/export/lv13/databases/merops/protease_description.txt"
+  database: "merops_protease"
+  database_names: "protease_description.txt"
   extra_params: ""
   concatenate_bins: "F"
   database_name: "MEROPS"
@@ -246,11 +246,11 @@ merops_blast:
   database_description: "This database is an information resource for peptidases (also termed proteases, proteinases and proteolytic enzymes) and the proteins that inhibit them."
 
 transporterDB_blast:
-  annotate: "T"
+  annotate: "F"
   threads: 10
   evalue: 1e-20
-  database: "/export/lv13/databases/transporterDB/blast/tcdb"#"/export/data01/databases/tcdb/TransporterDB/tcdb_renamed_short"
-  database_names: "/export/lv13/databases/transporterDB/tcdb_definition.tsv"#"/export/data01/databases/tcdb/TransporterDB/TCDB_Desc_final.txt"
+  database: "tcdb"
+  database_names: "tcdb_definition.tsv"
   extra_params: ""
   concatenate_bins: "F"
   database_name: "TCDB: Transporter Classification database"
@@ -258,11 +258,11 @@ transporterDB_blast:
   database_description: "The database details a classification system for membrane transport proteins known as the Transporter Classification (TC) system."
 
 hydDB_blast:
-  annotate: "T"
+  annotate: "F"
   threads: 10
   evalue: 1e-20
-  database: "/export/lv13/databases/HydDB/HydDB_uniq"
-  database_names: "/export/lv13/databases/HydDB/HydDB_mapping"
+  database: "HydDB_uniq"
+  database_names: "HydDB_mapping"
   extra_params: ""
   concatenate_bins: "F"
   database_name: "HydDB: Hydrogenase Database"
@@ -270,7 +270,7 @@ hydDB_blast:
   database_description: "Database for classification of hydrogenase sequences and contains curated hydrogenases by known type."
 
 signalP:
-  annotate: "T"
+  annotate: "F"
   cpus: 10
   organism: "other" #{eukarya,other,euk} The organism group of origin of the sequences. `eukarya`, `euk` limit predictions to Sec/SPI.
   extra_params: " --format none " #def values: --mode fast; --bsize 10

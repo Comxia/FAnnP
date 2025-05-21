@@ -62,6 +62,7 @@ Import conda environment and activate it:
 
 `conda env create -n fannp_v2.0 -f fannp_v2.0.yaml`
 `conda activate fannp_v2.0`
+`pip install mysql-connector-python`
 
 ## Run the pipeline
 Once that you have all the files in place and your configuration file done:
